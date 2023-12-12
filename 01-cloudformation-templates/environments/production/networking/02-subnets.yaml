@@ -1,0 +1,72 @@
+Parameters:
+  AvailabilityZones:
+    Type: AWS::EC2::AvailabilityZone::Name
+    Default: !Sub "${AWS::Region}a" # Use the default region's availability zone as a starting point
+
+Mappings:
+  RegionToAZ:
+    ap-southeast-3:
+      a: ap-southeast-3a
+      b: ap-southeast-3b
+      c: ap-southeast-3c
+
+Resources:
+  public-subnet-3a:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref production-vpc
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone: !FindInMap [RegionToAZ, !Ref "AWS::Region", a]
+      Tags:
+        - Key: Name
+          Value: !Sub "public-${AWS::Region}-${AvailabilityZones}-subnet"
+
+  public-subnet-3b:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref production-vpc
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone: !FindInMap [RegionToAZ, !Ref "AWS::Region", b]
+      Tags:
+        - Key: Name
+          Value: !Sub "public-${AWS::Region}-${AvailabilityZones}-subnet"
+
+  public-subnet-3c:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref production-vpc
+      CidrBlock: 10.0.2.0/24
+      AvailabilityZone: !FindInMap [RegionToAZ, !Ref "AWS::Region", c]
+      Tags:
+        - Key: Name
+          Value: !Sub "public-${AWS::Region}-${AvailabilityZones}-subnet"
+
+  private-subnet-3a:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref production-vpc
+      CidrBlock: 10.0.3.0/24
+      AvailabilityZone: !FindInMap [RegionToAZ, !Ref "AWS::Region", a]
+      Tags:
+        - Key: Name
+          Value: !Sub "private-${AWS::Region}-${AvailabilityZones}-subnet"
+
+  private-subnet-3b:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref production-vpc
+      CidrBlock: 10.0.4.0/24
+      AvailabilityZone: !FindInMap [RegionToAZ, !Ref "AWS::Region", b]
+      Tags:
+        - Key: Name
+          Value: !Sub "private-${AWS::Region}-${AvailabilityZones}-subnet"
+
+  private-subnet-3c:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref production-vpc
+      CidrBlock: 10.0.5.0/24
+      AvailabilityZone: !FindInMap [RegionToAZ, !Ref "AWS::Region", c]
+      Tags:
+        - Key: Name
+          Value: !Sub "private-${AWS::Region}-${AvailabilityZones}-subnet"
